@@ -43,13 +43,13 @@ namespace GraalGmapGenerator
             Console.WriteLine("Load full map? (y/n)...");
             if (Console.ReadLine() == "y")
             {
-                mapBuilder.LoadFullMap();
+                mapBuilder.LoadFullMap(true);
             }
 
             Console.WriteLine("No automapping? (y/n)...");
             if (Console.ReadLine() == "y")
             {
-                mapBuilder.NoAutomapping();
+                mapBuilder.NoAutomapping(true);
             }
 
             Console.WriteLine("Generating gmap...");

@@ -22,15 +22,15 @@
             return this;
         }
 
-        public GmapBuilder NoAutomapping()
+        public GmapBuilder NoAutomapping(bool value)
         {
-            _noAutomapping = true;
+            _noAutomapping = value;
             return this;
         }
 
-        public GmapBuilder LoadFullMap()
+        public GmapBuilder LoadFullMap(bool value)
         {
-            _loadFullMap = true;
+            _loadFullMap = value;
             return this;
         }
 

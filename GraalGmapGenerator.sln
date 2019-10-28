@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2043
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29403.142
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraalGmapGenerator", "GraalGmapGenerator\GraalGmapGenerator.csproj", "{C7C953DE-6E2D-4876-8252-B85431CB85DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraalGmapGenerator", "GraalGmapGenerator\GraalGmapGenerator.csproj", "{C7C953DE-6E2D-4876-8252-B85431CB85DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraalGmapGeneratorTests", "GrralGmapGeneratorTests\GraalGmapGeneratorTests.csproj", "{2D85D1C0-AE56-4F27-9ABF-3070414D1B0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C7C953DE-6E2D-4876-8252-B85431CB85DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7C953DE-6E2D-4876-8252-B85431CB85DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7C953DE-6E2D-4876-8252-B85431CB85DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D85D1C0-AE56-4F27-9ABF-3070414D1B0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D85D1C0-AE56-4F27-9ABF-3070414D1B0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D85D1C0-AE56-4F27-9ABF-3070414D1B0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D85D1C0-AE56-4F27-9ABF-3070414D1B0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

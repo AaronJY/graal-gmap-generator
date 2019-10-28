@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29403.142
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraalGmapGenerator", "GraalGmapGenerator\GraalGmapGenerator.csproj", "{C7C953DE-6E2D-4876-8252-B85431CB85DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraalGmapGeneratorTests", "GrralGmapGeneratorTests\GraalGmapGeneratorTests.csproj", "{2D85D1C0-AE56-4F27-9ABF-3070414D1B0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraalGmapGeneratorTests", "GraalGmapGeneratorTests\GraalGmapGeneratorTests.csproj", "{2D85D1C0-AE56-4F27-9ABF-3070414D1B0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

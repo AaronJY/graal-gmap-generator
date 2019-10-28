@@ -7,11 +7,7 @@ namespace GraalGmapGenerator
 {
     public class GmapContentGenerator
     {
-        private LevelType _levelType = LevelType.Nw;
-
-        public GmapContentGenerator()
-        {
-        }
+        readonly LevelType _levelType;
 
         public GmapContentGenerator(LevelType levelType)
         {
@@ -38,22 +34,15 @@ namespace GraalGmapGenerator
 
             stringBuilder.AppendLine("LEVELNAMES");
 
-            var levelNames = GetLevelNames(gmap);
-            for (var i = 0; i < levelNames.Count(); i++)
+            var levelNames = GetLevelNames(gmap).ToList();
+            for (var i = 0; i < levelNames.Count; i++)
             {
-                // Start a new line once the current line has 
-                // hit the width of the gmap
+                // Start a new line once the current line has hit the width of the gmap
                 if (i > 0 && i % gmap.Width == 0)
                     stringBuilder.AppendLine();
 
                 var levelName = GetLevelName(i, gmap.Name, _levelType);
                 stringBuilder.Append($"\"{levelName}\"");
-
-                // If at the end of the row
-
-                // lol hmmm no
-                // oh maybe
-                // we'll see 0.0)>[::]
 
                 // Only append a comma if its NOT the end of the row
                 if (i % gmap.Width < (gmap.Width - 1))

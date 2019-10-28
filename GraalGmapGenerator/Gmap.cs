@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-// Test Comment 
-
-namespace GraalGmapGenerator
+﻿namespace GraalGmapGenerator
 {
     public class Gmap
     {
@@ -19,19 +12,12 @@ namespace GraalGmapGenerator
 
         public bool LoadFullMap { get; set; }
 
-        #region Constructors
-
-        public Gmap()
-        {
-        }
-
         public Gmap(
             string name,
             int width,
             int height,
             bool noAutomapping = false,
             bool loadFullMap = false)
-            : this()
         {
             Name = name;
             Width = width;
@@ -39,9 +25,5 @@ namespace GraalGmapGenerator
             NoAutomapping = noAutomapping;
             LoadFullMap = loadFullMap;
         }
-
-        #endregion
-
-       
     }
 }

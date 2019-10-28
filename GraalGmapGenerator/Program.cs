@@ -17,26 +17,26 @@ namespace GraalGmapGenerator
 
             Console.WriteLine("Gmap width (in levels, for example: 8)...");
             // need to handle errors
-            int width = 0;
+            int width;
             do
             {
-                var isValid = int.TryParse(Console.ReadLine(), out width);
+                var isValid = int.TryParse(Console.ReadLine(), out width) && width > 0;
                 if (!isValid)
                 {
                     Console.WriteLine("Please enter a valid gmap width!");
                 }
-            } while (width == 0);
+            } while (width <= 0);
 
             Console.WriteLine("Gmap height (in levels, for example: 5)...");
-            int height = 0;
+            int height;
             do
             {
-                var isValid = int.TryParse(Console.ReadLine(), out height);
+                var isValid = int.TryParse(Console.ReadLine(), out height) && height > 0;
                 if (!isValid)
                 {
                     Console.WriteLine("Please enter a valid gmap height!");
                 }
-            } while (width == 0);
+            } while (height <= 0);
 
             mapBuilder.SetDimensions(width, height);
 

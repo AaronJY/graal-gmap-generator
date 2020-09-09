@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Linq;
 
 namespace GraalGmapGenerator.Validators
 {
@@ -17,6 +19,21 @@ namespace GraalGmapGenerator.Validators
             if (inputLowered == "no" || inputLowered == "n")
                 return true;
             return false;
+        }
+
+        public static bool IsValidDirectory(string input)
+        {
+            char[] inputChars = input.ToCharArray();
+            char[] fsInvalidPathChars = Path.GetInvalidPathChars();
+            foreach (char inputChar in inputChars)
+            {
+                if (fsInvalidPathChars.Contains(inputChar))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

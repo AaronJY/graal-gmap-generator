@@ -1,9 +1,10 @@
 ﻿using System;
+using System.IO;
 using GraalGmapGenerator.Validators;
 
 namespace GraalGmapGenerator
 {
-    class Program
+    class Programfg
     {
         static void Main(string[] args)
         {
@@ -65,7 +66,7 @@ namespace GraalGmapGenerator
             Console.WriteLine("Load full map? (y/n)...");
             Console.WriteLine("INFO: Loads all map parts into memory on startup.");
 
-            var loadFullMapStr = GetInput(
+            string loadFullMapStr = GetInput(
                 inputFunc: () => Console.ReadLine(),
                 validator: (input) => 
                 {
@@ -84,7 +85,7 @@ namespace GraalGmapGenerator
             Console.WriteLine("No automapping? (y/n)...");
             Console.WriteLine("INFO: Disables the assembly of automagical screenshots into a map that is drawn over the MAPIMG image.");
             
-            var noAutoMappingStr = GetInput(
+            string noAutoMappingStr = GetInput(
                 inputFunc: () => Console.ReadLine(),
                 validator: (input) => 
                 {
@@ -103,12 +104,30 @@ namespace GraalGmapGenerator
             Console.WriteLine("Save directory...");
             Console.WriteLine($"INFO: If you do not wish to provide a save directory, you can leave this setting blank (hit ENTER) and the GMAP will be created under \"gmaps/\" in the application directory ({AppDomain.CurrentDomain.BaseDirectory}/gmaps/{gmapName}/)");
 
-            // string saveDirectory = 
+            string saveDirectory = GetInput(
+                () => Console.ReadLine(),
+                (input) =>
+                {
+                    if (input != "" && !GmapPropertyValidators.IsValidDirectory(input))
+                    {
+                        Console.WriteLine("Please provide a valid directory path.");
+                        return false;
+                    }
+
+                    return true;
+                }
+            );
+
+            if (saveDirectory == "")
+            {
+                saveDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gmaps", gmapName);
+            }
+
             Console.WriteLine("Generating gmap...");
             var gmap = mapBuilder.Build();
 
             Console.WriteLine("Saving gmap...");
-            GmapWriter.SaveGmap(gmap);
+            GmapWriter.SaveGmap(saveDirectory, gmap);
 
             Console.WriteLine("Done!");
             Console.ReadLine();

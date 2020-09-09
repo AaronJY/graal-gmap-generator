@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using GraalGmapGenerator.Enums;
 
@@ -16,15 +17,13 @@ namespace GraalGmapGenerator
 
             var gmapContentGen = new GmapContentGenerator(LevelType.Nw);
 
-            // Create a new level file for each level
-            var levelNames = gmapContentGen.GetLevelNames(gmap);
+            IEnumerable<string> levelNames = gmapContentGen.GetLevelNames(gmap);
             foreach (string levelName in levelNames)
             {
                 File.Copy(TemplateFile, $"{destinationPath}/{levelName}");
             }
 
-            // Create the gmap file
-            var gmapContent = gmapContentGen.Generate(gmap);
+            string gmapContent = gmapContentGen.Generate(gmap);
             File.AppendAllText($"{destinationPath}/{gmap.Name}.gmap", gmapContent);
         }
     }

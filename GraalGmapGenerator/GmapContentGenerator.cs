@@ -34,7 +34,7 @@ namespace GraalGmapGenerator
 
             stringBuilder.AppendLine("LEVELNAMES");
 
-            var levelNames = GetLevelNames(gmap).ToList();
+            List<string> levelNames = GetLevelNames(gmap).ToList();
             for (var i = 0; i < levelNames.Count; i++)
             {
                 // Start a new line once the current line has hit the width of the gmap
@@ -59,14 +59,10 @@ namespace GraalGmapGenerator
 
         public IEnumerable<string> GetLevelNames(Gmap gmap)
         {
-            var levelNames = new List<string>();
-
-            for (var i = 0; i < (gmap.Width * gmap.Height); i++)
+            for (int i = 0; i < (gmap.Width * gmap.Height); i++)
             {
-                levelNames.Add(GetLevelName(i, gmap.Name, _levelType));
+                yield return GetLevelName(i, gmap.Name, _levelType);
             }
-
-            return levelNames;
         }
 
         private string GetLevelName(int index, string name, LevelType levelType)

@@ -6,7 +6,7 @@ namespace GraalGmapGenerator
     {
         public static bool YesNoToBool(string input)
         {
-            var inputLowered = input.ToLower();
+            string inputLowered = input.ToLower();
             if (input == "y" || input == "yes")
                 return true;
             if (input == "n" || input == "no")

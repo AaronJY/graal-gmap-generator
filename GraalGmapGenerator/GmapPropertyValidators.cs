@@ -2,13 +2,13 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace GraalGmapGenerator.Validators
+namespace GraalGmapGenerator
 {
     public static class GmapPropertyValidators
     {
         public static bool IsValidDimension(string input)
         {
-            return int.TryParse(input, out int width) && width > 0;
+            return int.TryParse(input, out int dimension) && dimension > 0;
         }
 
         public static bool IsValidYesNoInput(string input)

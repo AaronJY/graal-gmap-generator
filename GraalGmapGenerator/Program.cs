@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
-using GraalGmapGenerator.Validators;
 
 namespace GraalGmapGenerator
 {
-    class Programfg
+    class Program
     {
         static void Main(string[] args)
         {
@@ -15,7 +13,7 @@ namespace GraalGmapGenerator
             );
             Console.WriteLine();
             Console.WriteLine(
-                "If you run into any problems with the tool, drop me an email at me@aaronjy.me and I " +
+                "If you run into any problems, drop me an email at me@aaronjy.me and I " +
                 "\nwill endeavour to respond as soon as possible. " +
                 "\nThanks for using my software! - Aaron Yarborough"
             );
@@ -120,7 +118,6 @@ namespace GraalGmapGenerator
 
             if (saveDirectory == "")
             {
-                saveDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gmaps", gmapName);
             }
 
             Console.WriteLine("Generating gmap...");

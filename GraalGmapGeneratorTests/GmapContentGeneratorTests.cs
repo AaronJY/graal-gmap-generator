@@ -1,5 +1,6 @@
 ﻿using GraalGmapGenerator;
 using GraalGmapGenerator.Enums;
+using GraalGmapGeneratorTests.Fake;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,29 +13,24 @@ namespace GraalGmapGeneratorTests
         [Test]
         public void Generate_SavesCorrectDimensions()
         {
-            var expectedWidth = 5;
-            var expectedHeight = 6;
-
-            var gmap = GetTestGmap();
-            gmap.Width = expectedWidth;
-            gmap.Height = expectedHeight;
+            Gmap gmap = GmapFake.Get();
 
             var generator = new GmapContentGenerator(LevelType.Graal);
-            var result = generator.Generate(gmap);
-            var lines = result.Split("\n\r".ToCharArray(), System.StringSplitOptions.RemoveEmptyEntries);
+            string result = generator.Generate(gmap).Content;
+            string[] lines = result.Split("\n\r".ToCharArray(), System.StringSplitOptions.RemoveEmptyEntries);
 
-            Assert.AreEqual($"WIDTH {expectedWidth}", lines[1]);
-            Assert.AreEqual($"HEIGHT {expectedHeight}", lines[2]);
+            Assert.AreEqual($"WIDTH {gmap.Width}", lines[1]);
+            Assert.AreEqual($"HEIGHT {gmap.Height}", lines[2]);
         }
 
         [Test]
         public void Generate_SavesHeader()
         {
-            var gmap = GetTestGmap();
+            Gmap gmap = GmapFake.Get();
 
             var generator = new GmapContentGenerator(LevelType.Graal);
-            var result = generator.Generate(gmap);
-            var lines = SplitContentByLines(result);
+            string result = generator.Generate(gmap).Content;
+            List<string> lines = SplitContentByLines(result);
 
             Assert.AreEqual("GRMAP001", lines[0]);
         }
@@ -42,12 +38,11 @@ namespace GraalGmapGeneratorTests
         [Test]
         public void Generate_SaveNoAutomappingLine_WhenNoAutomappingIsTrue()
         {
-            var gmap = GetTestGmap();
-            gmap.NoAutomapping = true;
+            Gmap gmap = GmapFake.GetWithAutomappingTrue();
 
             var generator = new GmapContentGenerator(LevelType.Graal);
-            var result = generator.Generate(gmap);
-            var lines = SplitContentByLines(result);
+            string result = generator.Generate(gmap).Content;
+            List<string> lines = SplitContentByLines(result);
 
             Assert.IsTrue(lines.Contains("NOAUTOMAPPING"));
         }
@@ -55,12 +50,11 @@ namespace GraalGmapGeneratorTests
         [Test]
         public void Generate_DoesntSaveNoAutomappingLine_WhenNoAutomappingIsFalse()
         {
-            var gmap = GetTestGmap();
-            gmap.NoAutomapping = false;
+            Gmap gmap = GmapFake.Get();
 
             var generator = new GmapContentGenerator(LevelType.Graal);
-            var result = generator.Generate(gmap);
-            var lines = SplitContentByLines(result);
+            string result = generator.Generate(gmap).Content;
+            List<string> lines = SplitContentByLines(result);
 
             Assert.IsFalse(lines.Contains("NOAUTOMAPPING"));
         }
@@ -68,12 +62,11 @@ namespace GraalGmapGeneratorTests
         [Test]
         public void Generate_SaveLoadFullMapLine_WhenLoadFullMapIsTrue()
         {
-            var gmap = GetTestGmap();
-            gmap.LoadFullMap = true;
+            Gmap gmap = GmapFake.GetWithLoadFullMapTrue();
 
             var generator = new GmapContentGenerator(LevelType.Graal);
-            var result = generator.Generate(gmap);
-            var lines = SplitContentByLines(result);
+            string result = generator.Generate(gmap).Content;
+            List<string> lines = SplitContentByLines(result);
 
             Assert.IsTrue(lines.Contains("LOADFULLMAP"));
         }
@@ -81,12 +74,11 @@ namespace GraalGmapGeneratorTests
         [Test]
         public void Generate_DoesntSaveLoadFullMapLine_WhenLoadFullMapIsFalse()
         {
-            var gmap = GetTestGmap();
-            gmap.LoadFullMap = false;
+            Gmap gmap = GmapFake.Get();
 
             var generator = new GmapContentGenerator(LevelType.Graal);
-            var result = generator.Generate(gmap);
-            var lines = SplitContentByLines(result);
+            string result = generator.Generate(gmap).Content;
+            List<string> lines = SplitContentByLines(result);
 
             Assert.IsFalse(lines.Contains("LOADFULLMAP"));
         }
@@ -96,13 +88,13 @@ namespace GraalGmapGeneratorTests
         [TestCase(LevelType.Graal, ".graal")]
         public void Generate_SavesValidLevels_ForLevelType(LevelType levelType, string expectedFileExtension)
         {
-            var gmap = GetTestGmap();
+            Gmap gmap = GmapFake.Get();
             var generator = new GmapContentGenerator(levelType);
 
-            var content = generator.Generate(gmap);
+            string content = generator.Generate(gmap).Content;
 
-            var levelNames = GetLevelNamesFromContent(content);
-            var isAllCorrectFileExtension = levelNames.All(levelName => levelName.EndsWith(expectedFileExtension));
+            IEnumerable<string> levelNames = GetLevelNamesFromContent(content);
+            bool isAllCorrectFileExtension = levelNames.All(levelName => levelName.EndsWith(expectedFileExtension));
 
             Assert.IsTrue(isAllCorrectFileExtension);
         }
@@ -110,9 +102,9 @@ namespace GraalGmapGeneratorTests
         [Test]
         public void Generate_DoesSaveLevelNamesTags()
         {
-            var gmap = GetTestGmap();
+            Gmap gmap = GmapFake.Get();
             var generator = new GmapContentGenerator(LevelType.Graal);
-            var result = generator.Generate(gmap);
+            string result = generator.Generate(gmap).Content;
 
             Assert.IsTrue(result.Contains("LEVELNAMES", System.StringComparison.Ordinal));
             Assert.IsTrue(result.Contains("LEVELNAMESEND", System.StringComparison.Ordinal));
@@ -122,11 +114,6 @@ namespace GraalGmapGeneratorTests
         {
             var levelNamePattern = new Regex("\"(.*?)\"");
             return levelNamePattern.Matches(content).Select(x => x.Groups[1].Value);
-        }
-
-        private Gmap GetTestGmap()
-        {
-            return new Gmap("My test gmap", 10, 11, true, true);
         }
 
         private List<string> SplitContentByLines(string content)

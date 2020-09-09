@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using GraalGmapGenerator.Enums;
 
@@ -18,9 +17,10 @@ namespace GraalGmapGenerator
         /// Returns the gmap file contents
         /// </summary>
         /// <returns></returns>
-        public string Generate(Gmap gmap)
+        public GmapContent Generate(Gmap gmap)
         {
             var stringBuilder = new StringBuilder();
+            (string Content, IEnumerable<Level> Levels) data = GenerateLevelNamesList(gmap);
 
             stringBuilder.AppendLine("GRMAP001");
             stringBuilder.AppendLine($"WIDTH {gmap.Width}");
@@ -33,16 +33,34 @@ namespace GraalGmapGenerator
                 stringBuilder.AppendLine("LOADFULLMAP");
 
             stringBuilder.AppendLine("LEVELNAMES");
+            stringBuilder.AppendLine(data.Content);
+            stringBuilder.Append("LEVELNAMESEND");
 
-            List<string> levelNames = GetLevelNames(gmap).ToList();
-            for (var i = 0; i < levelNames.Count; i++)
+            string content = stringBuilder.ToString();
+
+            return new GmapContent(content, data.Levels);
+        }
+
+        private (string content, IEnumerable<Level> levelNames) GenerateLevelNamesList(Gmap gmap)
+        {
+            // TODO: Split this method up - it's doing too much. But I want to be able to generate
+            // the level names and also create a new instance of Level for each level within a single
+            // loop, rather than having a loop for each.
+
+            var stringBuilder = new StringBuilder();
+            var levels = new List<Level>();
+            int gmapArea = gmap.Width * gmap.Height;
+
+            for (int i = 0; i < gmapArea; i++)
             {
                 // Start a new line once the current line has hit the width of the gmap
                 if (i > 0 && i % gmap.Width == 0)
                     stringBuilder.AppendLine();
 
-                var levelName = GetLevelName(i, gmap.Name, _levelType);
-                stringBuilder.Append($"\"{levelName}\"");
+                var level = new Level(gmap, i, _levelType);
+                levels.Add(level);
+
+                stringBuilder.Append($"\"{level.FileName}\"");
 
                 // Only append a comma if its NOT the end of the row
                 if (i % gmap.Width < (gmap.Width - 1))
@@ -51,37 +69,7 @@ namespace GraalGmapGenerator
                 }
             }
 
-            stringBuilder.AppendLine();
-            stringBuilder.Append("LEVELNAMESEND");
-
-            return stringBuilder.ToString();
-        }
-
-        public IEnumerable<string> GetLevelNames(Gmap gmap)
-        {
-            for (int i = 0; i < (gmap.Width * gmap.Height); i++)
-            {
-                yield return GetLevelName(i, gmap.Name, _levelType);
-            }
-        }
-
-        private string GetLevelName(int index, string name, LevelType levelType)
-        {
-            string extension;
-
-            switch (levelType)
-            {
-                default:
-                case LevelType.Nw:
-                    extension = ".nw"; 
-                break;
-
-                case LevelType.Graal:
-                    extension = ".graal"; 
-                    break;
-            }
-
-            return $"{name}_{index}{extension}";
+            return (stringBuilder.ToString(), levels);
         }
     }
 }

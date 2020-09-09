@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace GraalGmapGenerator
 {
@@ -118,6 +119,7 @@ namespace GraalGmapGenerator
 
             if (saveDirectory == "")
             {
+                saveDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "gmaps", gmapName);
             }
 
             Console.WriteLine("Generating gmap...");

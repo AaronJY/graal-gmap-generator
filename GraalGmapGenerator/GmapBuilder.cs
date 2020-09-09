@@ -7,6 +7,7 @@
         private int _height;
         private bool _noAutomapping;
         private bool _loadFullMap;
+        private bool _addLevelLinks;
 
         public GmapBuilder SetName(string name)
         {
@@ -34,12 +35,24 @@
             return this;
         }
 
+        public GmapBuilder AddLevelLinks(bool value)
+        {
+            _addLevelLinks = value;
+            return this;
+        }
+
         /// <summary>
         /// Builds the gmap
         /// </summary>
         public Gmap Build()
         {
-            return new Gmap(_name, _width, _height, _noAutomapping, _loadFullMap);
+            return new Gmap(
+                _name,
+                _width,
+                _height,
+                _noAutomapping,
+                _loadFullMap,
+                _addLevelLinks);
         }
     }
 }

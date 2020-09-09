@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace GraalGmapGeneratorTests
 {
+    [TestFixture]
     public class GmapContentGeneratorTests
     {
         [Test]

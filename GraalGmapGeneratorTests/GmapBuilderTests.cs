@@ -3,6 +3,7 @@ using NUnit.Framework;
 
 namespace GraalGmapGeneratorTests
 {
+    [TestFixture]
     public class GmapBuilderTests
     {
         GmapBuilder gmapBuilder;

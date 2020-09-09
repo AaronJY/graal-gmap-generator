@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using GraalGmapGenerator;
 using NUnit.Framework;
 
@@ -72,7 +70,5 @@ namespace GraalGmapGeneratorTests
         {
             Assert.True(GmapPropertyValidators.IsValidDirectory(validPath));
         }
-
-        
     }
 }

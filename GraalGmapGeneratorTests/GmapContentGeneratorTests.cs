@@ -1,5 +1,6 @@
 ﻿using GraalGmapGenerator;
 using GraalGmapGenerator.Enums;
+using GraalGmapGenerator.Options;
 using GraalGmapGeneratorTests.Fake;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace GraalGmapGeneratorTests
         {
             Gmap gmap = GmapFake.Get();
 
-            var generator = new GmapContentGenerator(LevelType.Graal);
+            var generator = new GmapContentGenerator(GmapContentGenerationOptionsFake.Get());
             string result = generator.Generate(gmap).Content;
             string[] lines = result.Split("\n\r".ToCharArray(), System.StringSplitOptions.RemoveEmptyEntries);
 
@@ -29,7 +30,7 @@ namespace GraalGmapGeneratorTests
         {
             Gmap gmap = GmapFake.Get();
 
-            var generator = new GmapContentGenerator(LevelType.Graal);
+            var generator = new GmapContentGenerator(GmapContentGenerationOptionsFake.Get());
             string result = generator.Generate(gmap).Content;
             List<string> lines = SplitContentByLines(result);
 
@@ -41,7 +42,7 @@ namespace GraalGmapGeneratorTests
         {
             Gmap gmap = GmapFake.GetWithAutomappingTrue();
 
-            var generator = new GmapContentGenerator(LevelType.Graal);
+            var generator = new GmapContentGenerator(GmapContentGenerationOptionsFake.Get());
             string result = generator.Generate(gmap).Content;
             List<string> lines = SplitContentByLines(result);
 
@@ -53,7 +54,7 @@ namespace GraalGmapGeneratorTests
         {
             Gmap gmap = GmapFake.Get();
 
-            var generator = new GmapContentGenerator(LevelType.Graal);
+            var generator = new GmapContentGenerator(GmapContentGenerationOptionsFake.Get());
             string result = generator.Generate(gmap).Content;
             List<string> lines = SplitContentByLines(result);
 
@@ -65,7 +66,7 @@ namespace GraalGmapGeneratorTests
         {
             Gmap gmap = GmapFake.GetWithLoadFullMapTrue();
 
-            var generator = new GmapContentGenerator(LevelType.Graal);
+            var generator = new GmapContentGenerator(GmapContentGenerationOptionsFake.Get());
             string result = generator.Generate(gmap).Content;
             List<string> lines = SplitContentByLines(result);
 
@@ -77,7 +78,7 @@ namespace GraalGmapGeneratorTests
         {
             Gmap gmap = GmapFake.Get();
 
-            var generator = new GmapContentGenerator(LevelType.Graal);
+            var generator = new GmapContentGenerator(GmapContentGenerationOptionsFake.Get());
             string result = generator.Generate(gmap).Content;
             List<string> lines = SplitContentByLines(result);
 
@@ -90,7 +91,10 @@ namespace GraalGmapGeneratorTests
         public void Generate_SavesValidLevels_ForLevelType(LevelType levelType, string expectedFileExtension)
         {
             Gmap gmap = GmapFake.Get();
-            var generator = new GmapContentGenerator(levelType);
+            var generator = new GmapContentGenerator(new GmapContentGenerationOptions
+            {
+                LevelType = levelType
+            });
 
             string content = generator.Generate(gmap).Content;
 
@@ -104,7 +108,7 @@ namespace GraalGmapGeneratorTests
         public void Generate_DoesSaveLevelNamesTags()
         {
             Gmap gmap = GmapFake.Get();
-            var generator = new GmapContentGenerator(LevelType.Graal);
+            var generator = new GmapContentGenerator(GmapContentGenerationOptionsFake.Get());
             string result = generator.Generate(gmap).Content;
 
             Assert.IsTrue(result.Contains("LEVELNAMES", System.StringComparison.Ordinal));

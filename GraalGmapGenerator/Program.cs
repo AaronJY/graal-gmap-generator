@@ -5,6 +5,8 @@ namespace GraalGmapGenerator
 {
     class Program
     {
+        private const string ValidationMessageYesNo = "Please provide a valid \"y\" or \"n\" value!";
+
         static void Main(string[] args)
         {
             Console.WriteLine(
@@ -71,7 +73,7 @@ namespace GraalGmapGenerator
                 {
                     if (!GmapPropertyValidators.IsValidYesNoInput(input))
                     {
-                        Console.WriteLine("Please provide a valid \"y\" or \"n\" value!");
+                        Console.WriteLine(ValidationMessageYesNo);
                         return false;
                     }
 
@@ -90,7 +92,7 @@ namespace GraalGmapGenerator
                 {
                     if (!GmapPropertyValidators.IsValidYesNoInput(input))
                     {
-                        Console.WriteLine("Please provide a valid \"y\" or \"n\" value!");
+                        Console.WriteLine(ValidationMessageYesNo);
                         return false;
                     }
 
@@ -99,6 +101,25 @@ namespace GraalGmapGenerator
             );
 
             mapBuilder.NoAutomapping(Helpers.YesNoToBool(noAutoMappingStr));
+
+            Console.WriteLine("Add level links? (y/n)...");
+            Console.WriteLine("INFO: If \"y\" is selected, level links will be automatically added between GMAP levels.");
+
+            string addLevelLinksStr = GetInput(
+                () => Console.ReadLine(),
+                validator: (input) =>
+                {
+                    if (!GmapPropertyValidators.IsValidYesNoInput(input))
+                    {
+                        Console.WriteLine(ValidationMessageYesNo);
+                        return false;
+                    }
+
+                    return true;
+                }
+            );
+
+            mapBuilder.AddLevelLinks(Helpers.YesNoToBool(addLevelLinksStr));
 
             Console.WriteLine("Save directory...");
             Console.WriteLine($"INFO: If you do not wish to provide a save directory, you can leave this setting blank (hit ENTER) and the GMAP will be created under \"gmaps/\" in the application directory ({AppDomain.CurrentDomain.BaseDirectory}/gmaps/{gmapName}/)");
@@ -126,7 +147,7 @@ namespace GraalGmapGenerator
             var gmap = mapBuilder.Build();
 
             Console.WriteLine("Saving gmap...");
-            GmapWriter.SaveGmap(saveDirectory, gmap);
+            GmapWriter.Write(saveDirectory, gmap);
 
             Console.WriteLine("Done!");
             Console.ReadLine();

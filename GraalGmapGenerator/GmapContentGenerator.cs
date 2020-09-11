@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
-using GraalGmapGenerator.Enums;
+using GraalGmapGenerator.Options;
 
 namespace GraalGmapGenerator
 {
     public class GmapContentGenerator
     {
-        readonly LevelType _levelType;
+        readonly GmapContentGenerationOptions _options;
 
-        public GmapContentGenerator(LevelType levelType)
+        public GmapContentGenerator(GmapContentGenerationOptions options)
         {
-            _levelType = levelType;
+            _options = options ?? throw new ArgumentNullException(nameof(options));
         }
 
         /// <summary>
@@ -53,12 +54,12 @@ namespace GraalGmapGenerator
 
             for (int i = 0; i < gmapArea; i++)
             {
+                var level = new Level(gmap, i, _options.LevelType);
+                levels.Add(level);
+
                 // Start a new line once the current line has hit the width of the gmap
                 if (i > 0 && i % gmap.Width == 0)
                     stringBuilder.AppendLine();
-
-                var level = new Level(gmap, i, _levelType);
-                levels.Add(level);
 
                 stringBuilder.Append($"\"{level.FileName}\"");
 

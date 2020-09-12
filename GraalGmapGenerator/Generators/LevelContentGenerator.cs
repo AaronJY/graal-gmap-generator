@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
+using GraalGmapGenerator.Models;
 using GraalGmapGenerator.Options;
 
-namespace GraalGmapGenerator
+namespace GraalGmapGenerator.Generators
 {
     public class LevelContentGenerator
     {
         private string _templateContent;
-        private LevelContentGenerationOptions _options;
+        private LevelContentGeneratorOptions _options;
 
-        public LevelContentGenerator(LevelContentGenerationOptions options)
+        public LevelContentGenerator(LevelContentGeneratorOptions options)
         {
             _options = options;
             _templateContent = GetTemplateFileContent(options.TemplateFilePath);
@@ -26,7 +26,7 @@ namespace GraalGmapGenerator
             if (_options.AddLevelLinks)
             {
                 IEnumerable<LevelLink> links = GetLevelLinks(gmap, level);
-                foreach(LevelLink link in links)
+                foreach (LevelLink link in links)
                 {
                     stringBuilder.AppendLine(link.ToString());
                 }
@@ -60,7 +60,7 @@ namespace GraalGmapGenerator
             }
 
             // If level is not on the bottom row
-            if (level.Index < (gmap.Width * gmap.Height) - gmap.Width - 1)
+            if (level.Index < gmap.Width * gmap.Height - gmap.Width - 1)
             {
                 int linkLevelIndex = level.Index + gmap.Width;
                 string levelFileName = Level.GetFileName(gmap.Name, linkLevelIndex, level.LevelType);

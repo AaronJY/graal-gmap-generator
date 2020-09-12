@@ -2,7 +2,7 @@ using GraalGmapGenerator.Enums;
 
 namespace GraalGmapGenerator.Options
 {
-    public class GmapContentGenerationOptions
+    public class GmapContentGeneratorOptions
     {
         public LevelType LevelType { get; set; }
     }

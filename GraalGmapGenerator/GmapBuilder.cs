@@ -1,4 +1,6 @@
-﻿namespace GraalGmapGenerator
+﻿using GraalGmapGenerator.Models;
+
+namespace GraalGmapGenerator
 {
     public class GmapBuilder
     {
@@ -40,10 +42,7 @@
             _addLevelLinks = value;
             return this;
         }
-
-        /// <summary>
-        /// Builds the gmap
-        /// </summary>
+        
         public Gmap Build()
         {
             return new Gmap(

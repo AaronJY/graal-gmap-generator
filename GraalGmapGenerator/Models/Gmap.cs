@@ -1,4 +1,4 @@
-﻿namespace GraalGmapGenerator
+﻿namespace GraalGmapGenerator.Models
 {
     public class Gmap
     {

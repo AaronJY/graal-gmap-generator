@@ -1,4 +1,4 @@
-using GraalGmapGenerator;
+using GraalGmapGenerator.Models;
 
 namespace GraalGmapGeneratorTests.Fake
 {

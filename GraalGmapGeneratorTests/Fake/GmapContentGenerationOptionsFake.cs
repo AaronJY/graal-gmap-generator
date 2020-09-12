@@ -4,9 +4,9 @@ namespace GraalGmapGeneratorTests.Fake
 {
     internal static class GmapContentGenerationOptionsFake
     {
-        internal static GmapContentGenerationOptions Get()
+        internal static GmapContentGeneratorOptions Get()
         {
-            return new GmapContentGenerationOptions
+            return new GmapContentGeneratorOptions
             {
                 LevelType = GraalGmapGenerator.Enums.LevelType.Graal
             };

@@ -1,5 +1,7 @@
 using System.IO;
 using GraalGmapGenerator.Enums;
+using GraalGmapGenerator.Generators;
+using GraalGmapGenerator.Models;
 
 namespace GraalGmapGenerator
 {
@@ -14,14 +16,14 @@ namespace GraalGmapGenerator
                 Directory.CreateDirectory(destinationPath);
             }
 
-            var gmapContentGen = new GmapContentGenerator(new Options.GmapContentGenerationOptions
+            var gmapContentGen = new GmapContentGenerator(new Options.GmapContentGeneratorOptions
             {
                 LevelType = LevelType.Nw
             });
             
             GmapContent gmapContent = gmapContentGen.Generate(gmap);
 
-            var levelContentGen = new LevelContentGenerator(new Options.LevelContentGenerationOptions
+            var levelContentGen = new LevelContentGenerator(new Options.LevelContentGeneratorOptions
             {
                 AddLevelLinks = gmap.AddLevelLinks,
                 TemplateFilePath = DefaultTemplateFilePath

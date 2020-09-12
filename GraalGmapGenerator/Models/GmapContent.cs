@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace GraalGmapGenerator
+namespace GraalGmapGenerator.Models
 {
     public class GmapContent
     {

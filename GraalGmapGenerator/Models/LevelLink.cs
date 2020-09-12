@@ -1,4 +1,4 @@
-namespace GraalGmapGenerator
+namespace GraalGmapGenerator.Models
 {
     public class LevelLink
     {
@@ -10,7 +10,14 @@ namespace GraalGmapGenerator
         public string DestinationX { get; }
         public string DestinationY { get; }
 
-        public LevelLink(string levelFileName, int x, int y, int width, int height, string destinationX, string destinationY)
+        public LevelLink(
+            string levelFileName,
+            int x,
+            int y,
+            int width,
+            int height,
+            string destinationX,
+            string destinationY)
         {
             LevelFileName = levelFileName;
             X = x;

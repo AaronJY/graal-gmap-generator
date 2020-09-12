@@ -1,4 +1,4 @@
-﻿using GraalGmapGenerator;
+﻿using GraalGmapGenerator.Models;
 using NUnit.Framework;
 
 namespace GraalGmapGeneratorTests

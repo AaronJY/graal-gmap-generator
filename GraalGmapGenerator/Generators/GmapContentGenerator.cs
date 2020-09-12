@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GraalGmapGenerator.Models;
 using GraalGmapGenerator.Options;
 
-namespace GraalGmapGenerator
+namespace GraalGmapGenerator.Generators
 {
     public class GmapContentGenerator
     {
-        readonly GmapContentGenerationOptions _options;
+        readonly GmapContentGeneratorOptions _options;
 
-        public GmapContentGenerator(GmapContentGenerationOptions options)
+        public GmapContentGenerator(GmapContentGeneratorOptions options)
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
         }
@@ -64,7 +65,7 @@ namespace GraalGmapGenerator
                 stringBuilder.Append($"\"{level.FileName}\"");
 
                 // Only append a comma if its NOT the end of the row
-                if (i % gmap.Width < (gmap.Width - 1))
+                if (i % gmap.Width < gmap.Width - 1)
                 {
                     stringBuilder.Append(',');
                 }

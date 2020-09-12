@@ -1,5 +1,6 @@
-﻿using GraalGmapGenerator;
-using GraalGmapGenerator.Enums;
+﻿using GraalGmapGenerator.Enums;
+using GraalGmapGenerator.Generators;
+using GraalGmapGenerator.Models;
 using GraalGmapGenerator.Options;
 using GraalGmapGeneratorTests.Fake;
 using NUnit.Framework;
@@ -91,7 +92,7 @@ namespace GraalGmapGeneratorTests
         public void Generate_SavesValidLevels_ForLevelType(LevelType levelType, string expectedFileExtension)
         {
             Gmap gmap = GmapFake.Get();
-            var generator = new GmapContentGenerator(new GmapContentGenerationOptions
+            var generator = new GmapContentGenerator(new GmapContentGeneratorOptions
             {
                 LevelType = levelType
             });

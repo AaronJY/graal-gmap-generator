@@ -1,20 +1,20 @@
 using System;
 using GraalGmapGenerator.Enums;
 
-namespace GraalGmapGenerator
+namespace GraalGmapGenerator.Models
 {
     public class Level
     {
         public const int Width = 64;
         public const int Height = 64;
-        
+
         public string FileName { get; }
         public int Index { get; }
         public LevelType LevelType { get; }
 
         public Level(Gmap gmap, int index, LevelType levelType)
         {
-            FileName = Level.GetFileName(gmap.Name, index, levelType);
+            FileName = GetFileName(gmap.Name, index, levelType);
             Index = index;
             LevelType = levelType;
         }
@@ -27,7 +27,7 @@ namespace GraalGmapGenerator
                     throw new NotImplementedException($"{levelType} has not been implemented.");
 
                 case LevelType.Nw:
-                    return ".nw"; 
+                    return ".nw";
 
                 case LevelType.Graal:
                     return ".graal";
